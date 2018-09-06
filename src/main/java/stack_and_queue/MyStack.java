@@ -1,11 +1,11 @@
 package stack_and_queue;
 
 public class MyStack<T> {
-    Node<T> head;
+    StackNode<T> head;
 
-    public T pop() throws StackEmptyException {
+    public T pop() throws EmptyStackException {
         if (isEmpty()) {
-            throw new StackEmptyException();
+            throw new EmptyStackException();
         }
 
         final T result = head.element;
@@ -19,7 +19,7 @@ public class MyStack<T> {
     }
 
     public void push(final T element) {
-        Node<T> n = new Node<>(element);
+        StackNode<T> n = new StackNode<>(element);
         if (isEmpty()) {
             head = n;
         } else {
@@ -28,9 +28,9 @@ public class MyStack<T> {
         }
     }
 
-    public T peek() throws StackEmptyException {
+    public T peek() throws EmptyStackException {
         if (isEmpty()) {
-            throw new StackEmptyException();
+            throw new EmptyStackException();
         }
 
         return head.element;

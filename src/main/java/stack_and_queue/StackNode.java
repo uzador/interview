@@ -1,10 +1,10 @@
 package stack_and_queue;
 
-public class Node<T> {
+public class StackNode<T> {
     T element;
-    Node<T> next;
+    StackNode<T> next;
 
-    Node(T element) {
+    StackNode(T element) {
         this.element = element;
     }
 }

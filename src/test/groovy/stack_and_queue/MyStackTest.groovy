@@ -12,7 +12,7 @@ class MyStackTest extends Specification {
         stack.pop()
 
         then:
-        thrown(StackEmptyException)
+        thrown(EmptyStackException)
         stack.isEmpty()
     }
 
