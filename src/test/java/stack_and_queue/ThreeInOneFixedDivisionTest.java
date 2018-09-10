@@ -34,6 +34,7 @@ class ThreeInOneFixedDivisionTest {
         assertThrows(EmptyStackException.class, () -> stack.pop(arg));
     }
 
+    @DisplayName("push stakc fully and get FullStackException on push")
     @Test
     void pushAndGetException() throws FullStackException {
         stack.push(1, 1);
