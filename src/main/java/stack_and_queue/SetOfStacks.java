@@ -5,29 +5,60 @@ import java.lang.reflect.Array;
 
 
 public class SetOfStacks<T> {
-    public static final int NUMBER_OF_STACKS = 10;
+    private static final int NUMBER_OF_STACKS = 10;
     private final int stackCapacity;
     private final StackOfSetOfStacks<T>[] stacks;
     private int current;
 
     public SetOfStacks(final int stackCapacity) {
         this.stackCapacity = stackCapacity;
-//        this.stacks = (StackOfSetOfStacks<T>[]) new Object[NUMBER_OF_STACKS];
         this.stacks = (StackOfSetOfStacks<T>[])
                 Array.newInstance(StackOfSetOfStacks.class, NUMBER_OF_STACKS);
-        this.stacks[current] = new StackOfSetOfStacks<>(stackCapacity);
     }
 
     public void push(final T element) {
-        checkFullCapacity();
-
-        stacks[current].push(element);
+//        checkFullCapacity();
+//        stacks[current].push(element);
+        StackOfSetOfStacks<T> stack = getLastStack();
+        if (stack != null && !stack.isFull() && current != NUMBER_OF_STACKS - 1) {
+            stack.push(element);
+        } else if (stack == null) {
+            stack = new StackOfSetOfStacks<>(stackCapacity);
+            stack.push(element);
+            stacks[current] = stack;
+        } else if (stack.isFull() && current != NUMBER_OF_STACKS - 1) {
+            stack = new StackOfSetOfStacks<>(stackCapacity);
+            stack.push(element);
+            stacks[++current] = stack;
+        } else {
+            throw new FullStackException();
+        }
     }
 
     public T pop() {
-        checkEmptyCapacity();
+//        checkEmptyCapacity();
+//        return stacks[current].pop();
+        final StackOfSetOfStacks<T> stack = getLastStack();
 
-        return stacks[current].pop();
+        if (stack == null) {
+            throw new EmptyStackException();
+        }
+
+        final T result = stack.pop();
+
+        if (stack.isEmpty() && current == 0) {
+            stacks[current] = null;
+        }
+
+        if (stack.isEmpty() && current != 0) {
+            stacks[current--] = null;
+        }
+
+        return result;
+    }
+
+    private StackOfSetOfStacks<T> getLastStack() {
+        return stacks[current];
     }
 
     private StackOfSetOfStacks<T> getStack() {
@@ -37,7 +68,7 @@ public class SetOfStacks<T> {
 
     private void checkFullCapacity() {
         final boolean isStackIsFull = stacks[current].isFull();
-        if (isStackIsFull && current == NUMBER_OF_STACKS) {
+        if (isStackIsFull && current == NUMBER_OF_STACKS - 1) {
             throw new FullStackException();
         }
 

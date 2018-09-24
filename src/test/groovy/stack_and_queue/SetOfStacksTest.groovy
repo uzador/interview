@@ -30,10 +30,16 @@ class SetOfStacksTest extends Specification {
     def "push and pop"() {
         when:
         stacks.push(1)
-        def result = stacks.pop()
+        stacks.push(2)
+        stacks.push(3)
+        def result3 = stacks.pop()
+        def result2 = stacks.pop()
+        def result1 = stacks.pop()
 
         then:
-        result == 1
+        3 == result3
+        2 == result2
+        1 == result1
     }
 
 
