@@ -23,7 +23,6 @@ public class GraphNode<T> {
                 ", value=" + value +
                 ", state=" + state +
                 ", adjacent=" + Arrays.toString(adjacent) +
-//                ", adjacent=" + adjacent +
                 '}';
     }
 }

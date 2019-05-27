@@ -7,7 +7,7 @@ public class SingleLinkedList<T> {
     }
 
     SingleLinkedList(T element) {
-        head = new Node<T>(element);
+        head = new Node<>(element);
     }
 
     public static void main(String[] args) {
